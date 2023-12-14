@@ -17,7 +17,7 @@ pipeline{
         stage("Checkout Code") {
             steps {
                 script {
-                    git branch: 'main', credentialsId: 'github', url: 'https://github.com/lellaaditya/complete-prodcution-e2e-pipeline.git'
+                    git branch: 'main', credentialsId: 'github', url: 'https://github.com/adityasneo/complete-prodcution-e2e-pipeline-jenkins-sonar.git'
                 }
             }        
         }
@@ -39,7 +39,7 @@ pipeline{
         stage("Sonarqube Analysis") {
             steps {
                 script {
-                    withSonarQubeEnv(credentialsId: 'jenkins-sonarqube-token') {
+                    withSonarQubeEnv(credentialsId: 'Jenkins-sonar') {
                         sh "mvn sonar:sonar"
                     }
                 }
@@ -49,7 +49,7 @@ pipeline{
        stage("Quality Gate") {
             steps {
                 script {
-                    waitForQualityGate abortPipeline: false, credentialsId: 'jenkins-sonarqube-token'
+                    waitForQualityGate abortPipeline: false, credentialsId: 'Jenkins-sonar'
                 }
             }
 
